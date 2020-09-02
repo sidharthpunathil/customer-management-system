@@ -16,12 +16,6 @@ class CustomerForm(forms.ModelForm):
         model = Customer
         fields = '__all__'
         exclude = ['user']
-        widgets = {
-            'name': forms.TextInput(attrs={'placeholder': 'John'}),
-            'phone': forms.NumberInput(
-                attrs={'placeholder': '+91 1234567890'}),
-            'email': forms.TextInput(attrs={'placeholder': 'johndoe@mail.com'}),
-        }
 
 
 class CreateUserForm(UserCreationForm):
