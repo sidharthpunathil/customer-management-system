@@ -67,7 +67,8 @@ def createCustomer(request):
 @login_required(login_url='login')
 @allowed_users(allowed_roles='admin')
 def createOrder(request, pk):
-    OrderFormSet = inlineformset_factory(Customer, Order, fields=('product', 'status'), extra=10)
+    OrderFormSet = inlineformset_factory(
+        Customer, Order, fields=('product', 'status'), extra=10)
     customer = Customer.objects.get(id=pk)
     formset = OrderFormSet(queryset=Order.objects.none(), instance=customer)
     # form = OrderForm(initial={'customer':customer})
@@ -128,9 +129,11 @@ def registerPage(request):
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
         if form.is_valid():
-            user = form.save()  # every time save is called signal will be called! (signal will run prior to post save)
+            # every time save is called signal will be called! (signal will run prior to post save)
+            user = form.save()
             username = form.cleaned_data.get('username')
-            messages.success(request, 'Account was created for {}'.format(username))
+            messages.success(
+                request, 'Account was created for {}'.format(username))
             return redirect('login')
 
     context = {'form': form}
